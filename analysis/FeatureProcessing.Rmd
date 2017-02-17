@@ -37,7 +37,7 @@ prop.table(table(titanic_train_c$pclass,  titanic_train_c$survived),margin = 1)
 ```
 
 ```{r sex}
-convertsex<-function(x) factor(x, labels=c("male","female"))
+convertsex<-function(x) factor(x, labels=c("female","male"))
 titanic_train_c$sex <- convertsex(titanic_train_c$sex)
 prop.table(table(titanic_train_c$sex,  titanic_train_c$survived),1)
 ```
@@ -112,7 +112,7 @@ titanic_train_c<-predict(procVar, titanic_train_c)
 
 ## Checking for highly correlated variables
 ```{r corVars}
-colsToRemoveDueToCorr<-findCorrelation(cor(sapply(titanic_train_c[,-ncol(titanic_train_c)],unclass)))
+colsToRemoveDueToCorr<-findCorrelation(cor(sapply(titanic_train_c[,-ncol(titanic_train_c)],unclass))) # unclass factors to compare correlation of ALL columns, not just numeric columns
 if(length(colsToRemoveDueToCorr)>0)
 titanic_train_c<-titanic_train_c[,-colsToRemoveDueToCorr]
 ```
@@ -127,6 +127,7 @@ titanic_train_c<-titanic_train_c[,-colsToRemoveDueToLowVar]
 ## Applying to test samples
 
 Once processed for our training, we should apply changes to our test data. Consolidating transformations like this allows us to think about our production requirements in relation to the data.
+BM: This  list is useful as it shows all the processingg done to the data.
 
 ```{r testcolumns}
 survived_t <- convertsurvived(titanic_test_c$survived)

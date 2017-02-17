@@ -15,6 +15,8 @@ summary(allin)
 
 caret::varImp(allin)
 ```
+BM: variable importance is useful information.  If get 0.00 then could merge this with other data in the embarkation field, or could remove from model.
+
 
 ## Simple
 ```{r simple}
